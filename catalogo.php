@@ -16,10 +16,22 @@
 
 <div class="topnav">
   <div class="topnavv">
-    <a class="active" href="index.html">Home</a>
+    <a class="active" href="index.php">Home</a>
   </div>
   <a href="signup.php">sign up</a>
-  <a href="login.php">log in</a>
+
+  <?php
+    session_start();
+    if(!isset($_SESSION["username"]))
+    {
+      echo "<a href='login.php'>log in</a>";
+    }
+    else
+    {
+      echo "<a href='logout.php'>log out</a>";
+    }
+  ?>
+
   <a href="catalogo.php">catalogo</a>
   <div class="search-container">
     <form action="search.php" method="post">
@@ -84,7 +96,17 @@
         {
           echo "<tr>";
 
-          echo "<td>" . $row['id']. "</td><td> <img class='sprites' src='main-sprites/" . $row['id']. ".png'> </td><td>" . $row['identifier']. "</td><td>" . $row['height'] ."</td><td>" .$row['weight'] . "</td>";
+          echo "<td>" . $row['id']. "</td>
+          <td> 
+
+            <form method='GET' action='pokedetails.php'>
+            <input type='hidden' name='idPoke' value=".$row['id']. " />
+            <button type='submit'> <img src='main-sprites/". $row['id']. ".png'/> </button>
+            </form>
+
+        </td><td>" . $row['identifier']. "</td>
+          <td>" . $row['height'] ."</td>
+          <td>" .$row['weight'] . "</td>";
 
           echo "</tr>";
         }

@@ -20,7 +20,7 @@
 
   <div class="topnav">
     <div class="topnavv">
-      <a class="active" href="index.html">Home</a>
+      <a class="active" href="index.php">Home</a>
     </div>
     <a href="signup.php">sign up</a>
     <a href="login.php">log in</a>

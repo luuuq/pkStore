@@ -15,10 +15,21 @@
 
 <div class="topnav">
   <div class="topnavv">
-    <a class="active" href="index.html">Home</a>
+    <a class="active" href="index.php">Home</a>
   </div>
   <a href="signup.php">sign up</a>
-  <a href="login.php">log in</a>
+  
+  <?php
+    if(!isset($_SESSION["username"]))
+    {
+      echo "<a href='login.php'>log in</a>";
+    }
+    else
+    {
+      echo "<a href='logout.php'>log out</a>";
+    }
+  ?>
+
   <a href="catalogo.php">catalogo</a>
   <div class="search-container">
     <form action="search.php" method="post">
@@ -50,11 +61,21 @@
       echo "</thead>";
 
       echo "<tbody>";
-        while($result = $sth->fetch(PDO::FETCH_ASSOC))
+        while($result = $sth->fetch())
         {
           echo "<tr>";
 
-          echo "<td>" . $result['id']. "</td><td> <img class='sprites' src='main-sprites/" . $result['id']. ".png'> </td><td>" . $result['identifier']. "</td><td>" . $result['height'] ."</td><td>" .$result['weight'] . "</td>";
+          echo "<td>" . $result['id']. "</td>
+          <td>
+          
+          <form method='GET' action='pokedetails.php'>
+            <input type='hidden' name='idPoke' value=".$result['id']. " />
+            <button type='submit'> <img src='main-sprites/". $result['id']. ".png'/> </button>
+          </form>
+          
+          </td><td>" . $result['identifier']. "</td>
+          <td>" . $result['height'] ."</td>
+          <td>" .$result['weight'] . "</td>";
 
           echo "</tr>";
         }

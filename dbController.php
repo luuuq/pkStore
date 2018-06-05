@@ -1,9 +1,8 @@
 <?php
   Class dbcontroller{
-
   private $servername="Localhost";
   private $username="root";
-  private $password="root";
+  private $password="";
   private $dbname="pokemon";
   private $conn;
 
@@ -46,7 +45,7 @@ function numRows($query) {
 function register($name, $surname, $user, $email, $pwd){
      try{
           // prepare a query and execute it
-          $query = "INSERT INTO REGISTER (name, surname, username, email, pasw) VALUES (:name, :surname, :user, :email, :password)";
+          $query = "INSERT INTO REGISTER (name, surname, user, email, psw) VALUES (:name, :surname, :user, :email, :password)";
           //echo $query; //for debug
           $sql = $this->conn->prepare($query);
           $sql->execute(array(':name'=>$name, ':surname'=>$surname, ':user'=>$user, ':email'=>$email, ':password'=>$pwd));
@@ -63,13 +62,13 @@ function register($name, $surname, $user, $email, $pwd){
 
 function login_control($username, $pasw){
   try{
-    $query = "SELECT * FROM REGISTER WHERE username='$username' AND pasw='$pasw'";
+    $query = "SELECT * FROM REGISTER WHERE user='$username' AND psw='$pasw'";
     $result = $this->runQuery($query);
     $res = $result->fetch();
     $id = $res['id'];
-    if(is_numeric[$id])
+    if(is_numeric($id))
     {
-      Header("Location: index.php");
+      Header('Location: index.php');
     }
  }
   catch(PDOException $e){
